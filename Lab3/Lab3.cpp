@@ -19,11 +19,13 @@ Point :: Point() : x(1), y(2){}
 
 int main(){
     // Stack
-    Point points[] = {Point(1,1), Point(2,1), Point(3,4), Point(4,5), Point(6,7), Point(4,8), Point(3,5), Point(10,3), Point(1,2)}; // declared on the stack
+    Point points[] = {Point(1,1), Point(2,1), Point(3,4), Point(4,5), Point(6,7), Point(4,8), Point(3,5), Point(10,3), Point(1,2), Point(10,10)}; // declared on the stack
+    cout << "Points created on the stack:" << endl;
     for (auto x : points){
         x.print();
     }
     // Heap
+    cout << "Points created on the heap:" << endl;
     int num = 10; // size of the point array to make
     Point *ps = new Point[num]; // declared on the heap
     for (int i = 0; i < num; i++){
