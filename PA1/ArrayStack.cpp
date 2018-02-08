@@ -1,4 +1,7 @@
-#include "Stack.h"
+#include <iostream>
+#include "Timer.cpp"
+
+class EmptyStackException{};
 
 // push algorithm
 // test if we are at max size, if we are increase size by a constant factor
@@ -8,22 +11,89 @@
 // O(n^2)/n
 template <class Type>
 
-class ArrayStack : public AbstractStack<Type> {
-    ArrayStack(int nums){
-        AbstractStack<Type>(int num);
+class ArrayStack {
+    private:
+        int max_size;
+        Type* S;
+        int t;
+
+    public:
+    ArrayStack<Type>(int sz){
+        max_size = sz;
+        t = -1;
+        S = new Type[sz];
     };
-    ~ArrayStack(void) {~AbstractStack<Type>();}
+
+    ~ArrayStack<Type>(){
+        delete[] S;
+    }
+  
+    int get_max_size(){return max_size;}
+
+    bool isEmpty(){
+        if(t < 0) {
+            return true;
+        }
+        return false;
+    }
+
+    bool isFull(){
+        if (max_size == t){ 
+            return true;
+        }
+        else{
+            return false;
+        };
+    }
+
+    void resize(int new_size){
+        Type* new_Array = new Type[new_size];
+        for(int i = 0; i <= t; i++){
+            new_Array[i] = S[i];
+        }
+        max_size = new_size;
+        *S = *new_Array;
+    }
 
     void push(Type e) {
-        //if(isFull()){
+        if(isFull()){
+            // Should just call resize
             // TODO create new Stack with bigger size of size + C (some constant)
-        //}
-        //else {
-        //    // Push new object
-        //}
+            int new_size = max_size + 10;
+            resize(new_size);
+            t++;
+            S[t] = e;
+        }
+        else {
+            // Push new object
+            t++;
+            S[t] = e;
+        }
     }
+
+    Type pop(){
+        if(isEmpty()){
+            throw EmptyStackException();
+        }
+        return S[t--];
+    }
+
+    void print_stack(){
+        for(int i = 0; i <= t; i++){
+            std::cout << S[i] << "\n";
+        }
+    }
+
 };
 
 int main(){
-    return 0;
+    Timer Timer_program = Timer();
+    Timer_program.start();
+    ArrayStack<int>* newStack = new ArrayStack<int>(5);
+    for(int i = 0; i < 15500; i++){
+        newStack->push(i);
+    }
+    Timer_program.stop();
+
+    std::cout << "Time taken was " << Timer_program.ms() << " ms" << "\n";
 }

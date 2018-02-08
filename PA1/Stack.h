@@ -8,34 +8,26 @@ class AbstractStack
 {
 private:
     // data goes here
-    int max_size; // stack capacity
-    Type *S; // Stack array
-    int t; // top of stack
 
 public:
    AbstractStack(int nums) {
        max_size = nums;
-       S = new Type[max_size];
-       t = -1;
    }
 
-   ~AbstractStack(void) { delete[] S; }
+   ~AbstractStack(void) { }
 
-   bool isEmpty(void) { return t < 0; }
+   bool isEmpty(void) {}
 
-   bool isFull(void) { return t==max_size; }
+   bool isFull(void) {}
 
-   int size(void) {return t;}
+   int get_max_size(void) {return max_size;}
 
-   Type top() { return S[t]; }
+   int get_size(void) {}
 
-   Type pop() {
-       if(isEmpty())
-           throw EmptyStackException();
-       return S[t--];
-   }
-   
-   virtual void push ( Type e ) = 0;
+   Type top() {}
+
+   Type pop() {}
+
 
 };
 

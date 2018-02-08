@@ -1,11 +1,11 @@
 ArrayStack:
-	g++ -o ArrayStack.o Stack.h ArrayStack.cpp
+	g++ -o ArrayStack.o ArrayStack.cpp
 
 DoubleArray:
-	g++ -o DoubleArrayStack.o Stack.h DoubleArrayStack.cpp
+	g++ -o DoubleArrayStack.o DoubleArrayStack.cpp
 
 LinkList:
-	g++ -o LinkListStack.o Stack.h LinkListStack.cpp
+	g++ -o LinkListStack.o LinkListStack.cpp
 
 
 .PHONY : all

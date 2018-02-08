@@ -1,11 +1,10 @@
-#include "Stack.h"
 #include <iostream>
+#include "Timer.cpp"
 
+class EmptyStackException{};
 
 // Top element is the first element in a list
 // Runtime O(1)
-
-class EmptyStackException{};
 
 struct LinkListNode
 {
@@ -32,7 +31,7 @@ class LinkListStack
     LinkListStack(void) {
         head = nullptr;
         tail = nullptr;
-        count = 0;
+        count = -1;
     }
 
     ~LinkListStack(void) { 
@@ -41,14 +40,14 @@ class LinkListStack
         delete[] tail;
     }
     
-    bool isEmpty(void) { if(size() <= 0) return true; }
+    bool isEmpty(void) { if(size() < 0) return true; }
     
     int size(void) { return count; }
 
     LinkListNode* get_head(void){ return head; }
     LinkListNode* get_tail(void){ return tail; }
-    LinkListNode* set_head(LinkListNode* new_head){ head = new_head; }
-    LinkListNode* set_tail(LinkListNode* new_tail){ tail = new_tail; }
+    void set_head(LinkListNode* new_head){ head = new_head; }
+    void set_tail(LinkListNode* new_tail){ tail = new_tail; }
     
     LinkListNode* top() { return tail; }
     
@@ -61,7 +60,7 @@ class LinkListStack
             current = current->next;
         }
         // Reset tail to one before the most recent popped off
-        tail = set_tail(get_head());
+        set_tail(get_head());
         for(int j = 1; j < count - 1; j++){
             tail = tail->next;
         }
@@ -69,26 +68,24 @@ class LinkListStack
         count--;
     }
     
-    LinkListNode* push ( LinkListNode* e ){
+    void push ( LinkListNode* e ){
          if(isEmpty()){
              set_head(e);
              set_tail(e);
              count++;
-             return e;
          }
          else {
              LinkListNode* current = get_tail();
              current->next = e;
              set_tail(e); 
              count++;
-             return tail;
          }
     }
 
     void print_stack(void){
         LinkListNode* current = get_head();
 
-        for(int i = 0; i < count; i++){
+        for(int i = 0; i <= count; i++){
             std::cout << current->data << "\n";
             current = current->next;
         }
@@ -99,13 +96,14 @@ class LinkListStack
 };
 
 int main(){
+    Timer Timer_program = Timer();
+    Timer_program.start();
     LinkListStack* LinkList = new LinkListStack();
-    LinkListNode* Node1 = new LinkListNode(10);
-    LinkListNode* Node2 = new LinkListNode(9);
-    LinkListNode* Node3 = new LinkListNode(8);
 
-    LinkList->push(Node1);
-    LinkList->push(Node2);
-    LinkList->push(Node3);
-    LinkList->print_stack();
+    for(int i = 0; i < 100000; i++){
+        LinkListNode* Node1 = new LinkListNode(i);
+        LinkList->push(Node1);
+    }
+    Timer_program.stop();
+    std::cout << "Time taken was " << Timer_program.ms() << " ms" << "\n";
 }
