@@ -90,7 +90,7 @@ int main(){
     Timer Timer_program = Timer();
     Timer_program.start();
     DoubleArrayStack<int>* newStack = new DoubleArrayStack<int>(5);
-    for(int i = 0; i < 15000; i++){
+    for(int i = 0; i < 50000; i++){
         newStack->push(i);
     }
     Timer_program.stop();

@@ -100,7 +100,7 @@ int main(){
     Timer_program.start();
     LinkListStack* LinkList = new LinkListStack();
 
-    for(int i = 0; i < 100000; i++){
+    for(int i = 0; i < 50000; i++){
         LinkListNode* Node1 = new LinkListNode(i);
         LinkList->push(Node1);
     }
