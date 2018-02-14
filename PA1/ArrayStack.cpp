@@ -38,7 +38,7 @@ class ArrayStack {
     }
 
     bool isFull(){
-        if (max_size == t){ 
+        if ((max_size-1) == t){ 
             return true;
         }
         else{
@@ -52,7 +52,8 @@ class ArrayStack {
             new_Array[i] = S[i];
         }
         max_size = new_size;
-        *S = *new_Array;
+        delete[] S;
+        S = new_Array;
     }
 
     void push(Type e) {
@@ -90,7 +91,7 @@ int main(){
     Timer Timer_program = Timer();
     Timer_program.start();
     ArrayStack<int>* newStack = new ArrayStack<int>(5);
-    for(int i = 0; i < 50000; i++){
+    for(int i = 0; i < 100000; i++){
         newStack->push(i);
     }
     Timer_program.stop();

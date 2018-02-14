@@ -4,30 +4,30 @@
 class EmptyStackException{};
 
 // push algorithm
-// test if we are at max
-// if we are, make new stack with double stack and double the length
-// then move +1 and push the new element
-// Runtime of O(n)
-// Amortized time of push operation is O(1)
-// O(n)/n
-
+// test if we are at max size, if we are increase size by a constant factor
+// then move +1, and push new element
+// Runtime of O(n^2)
+// Amortized time of push is O(n)
+// O(n^2)/n
 template <class Type>
 
-class DoubleArrayStack {
+class ArrayStack {
     private:
         int max_size;
         Type* S;
         int t;
+
     public:
-    DoubleArrayStack<Type>(int nums){
-        max_size = nums;
+    ArrayStack<Type>(int sz){
+        max_size = sz;
         t = -1;
-        S = new Type[nums];
+        S = new Type[sz];
     };
-    ~DoubleArrayStack<Type>(void) {
+
+    ~ArrayStack<Type>(){
         delete[] S;
     }
-
+  
     int get_max_size(){return max_size;}
 
     bool isEmpty(){
@@ -38,27 +38,27 @@ class DoubleArrayStack {
     }
 
     bool isFull(){
-        if (max_size == t){ 
+        if ((max_size-1) == t){ 
             return true;
         }
         else{
             return false;
-        }
+        };
     }
 
     void resize(int new_size){
         Type* new_Array = new Type[new_size];
-        for(int j = 0; j <= t; j++){
-            new_Array[j] = S[j];
+        for(int i = 0; i <= t; i++){
+            new_Array[i] = S[i];
         }
         max_size = new_size;
-        *S = *new_Array;
+        delete[] S;
+        S = new_Array;
     }
 
     void push(Type e) {
         if(isFull()){
             // Should just call resize
-            // TODO create new Stack with bigger size of size * 2
             int new_size = max_size * 2;
             resize(new_size);
             t++;
@@ -89,12 +89,11 @@ class DoubleArrayStack {
 int main(){
     Timer Timer_program = Timer();
     Timer_program.start();
-    DoubleArrayStack<int>* newStack = new DoubleArrayStack<int>(5);
-    for(int i = 0; i < 50000; i++){
+    ArrayStack<int>* newStack = new ArrayStack<int>(5);
+    for(int i = 0; i < 100000; i++){
         newStack->push(i);
     }
     Timer_program.stop();
 
     std::cout << "Time taken was " << Timer_program.ms() << " ms" << "\n";
 }
-

@@ -24,45 +24,51 @@ class LinkListStack
     private:
     // data goes here
     LinkListNode* head;
-    LinkListNode* tail;
     int count;
 
     public:
     LinkListStack(void) {
         head = nullptr;
-        tail = nullptr;
         count = -1;
     }
 
     ~LinkListStack(void) { 
         // TODO loop through list and delete
+        LinkListNode* current = head;
+        LinkListNode* prev = nullptr;
+        for(int i = 0; i < count; i++){
+            prev = current;
+            current = current->next;
+            delete[] prev;
+        }
         delete[] head;
-        delete[] tail;
     }
     
-    bool isEmpty(void) { if(size() < 0) return true; }
+    bool isEmpty(void) { 
+        if(count < 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     
     int size(void) { return count; }
-
-    LinkListNode* get_head(void){ return head; }
-    LinkListNode* get_tail(void){ return tail; }
-    void set_head(LinkListNode* new_head){ head = new_head; }
-    void set_tail(LinkListNode* new_tail){ tail = new_tail; }
     
-    LinkListNode* top() { return tail; }
+    LinkListNode* top() { return head; }
     
     LinkListNode* pop() {
-        if(isEmpty())
+        if(isEmpty()){
             throw EmptyStackException();
-        // Loop to node to be popped off
-        LinkListNode* current = this->head;
-        for(int i = 1; i < count; i++){
-            current = current->next;
         }
-        // Reset tail to one before the most recent popped off
-        set_tail(get_head());
-        for(int j = 1; j < count - 1; j++){
-            tail = tail->next;
+        // Get current head;
+        LinkListNode* current = head;
+        // If it's the only node in the stack, set head to null
+        if(!(current->next)){
+            head = nullptr;
+        }
+        else{
+            head = current->next;
         }
         delete[] current;
         count--;
@@ -70,22 +76,21 @@ class LinkListStack
     
     void push ( LinkListNode* e ){
          if(isEmpty()){
-             set_head(e);
-             set_tail(e);
+             head = e;
              count++;
          }
          else {
-             LinkListNode* current = get_tail();
-             current->next = e;
-             set_tail(e); 
+             LinkListNode* current = head;
+             e->next = current;
+             head = e; 
              count++;
          }
     }
 
     void print_stack(void){
-        LinkListNode* current = get_head();
+        LinkListNode* current = head;
 
-        for(int i = 0; i <= count; i++){
+        for(int i = 0; i < count; i++){
             std::cout << current->data << "\n";
             current = current->next;
         }
@@ -100,10 +105,11 @@ int main(){
     Timer_program.start();
     LinkListStack* LinkList = new LinkListStack();
 
-    for(int i = 0; i < 50000; i++){
+    for(int i = 0; i < 400000; i++){
         LinkListNode* Node1 = new LinkListNode(i);
         LinkList->push(Node1);
     }
+
     Timer_program.stop();
     std::cout << "Time taken was " << Timer_program.ms() << " ms" << "\n";
 }
