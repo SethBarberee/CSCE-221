@@ -7,6 +7,8 @@ DoubleArray:
 LinkList:
 	g++ -o LinkListStack.o LinkListStack.cpp
 
+clean:
+	rm *.o
 
 .PHONY : all
 all:
