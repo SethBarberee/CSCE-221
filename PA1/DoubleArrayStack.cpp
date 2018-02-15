@@ -18,11 +18,16 @@ class ArrayStack {
         int t;
 
     public:
+    ArrayStack<Type>(){
+        max_size = 1;
+        t = -1;
+        S = new Type[max_size];
+    }
     ArrayStack<Type>(int sz){
         max_size = sz;
         t = -1;
-        S = new Type[sz];
-    };
+        S = new Type[max_size];
+    }
 
     ~ArrayStack<Type>(){
         delete[] S;
@@ -90,7 +95,7 @@ int main(){
     Timer Timer_program = Timer();
     Timer_program.start();
     ArrayStack<int>* newStack = new ArrayStack<int>(5);
-    for(int i = 0; i < 100000; i++){
+    for(int i = 0; i < 3000000; i++){
         newStack->push(i);
     }
     Timer_program.stop();

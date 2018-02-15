@@ -6,24 +6,25 @@ class EmptyStackException{};
 // Top element is the first element in a list
 // Runtime O(1)
 
+template <class Type>
 struct LinkListNode
 {
-    int data;
-    LinkListNode* next;
+    Type data;
+    LinkListNode<Type>* next;
 
-    LinkListNode(int da){
+    LinkListNode<Type>(Type da){
         data = da;
         next = nullptr;
     }
 };
 
 
-
+template <class Type>
 class LinkListStack
 {
     private:
     // data goes here
-    LinkListNode* head;
+    LinkListNode<Type>* head;
     int count;
 
     public:
@@ -33,9 +34,8 @@ class LinkListStack
     }
 
     ~LinkListStack(void) { 
-        // TODO loop through list and delete
-        LinkListNode* current = head;
-        LinkListNode* prev = nullptr;
+        LinkListNode<Type>* current = head;
+        LinkListNode<Type>* prev = nullptr;
         for(int i = 0; i < count; i++){
             prev = current;
             current = current->next;
@@ -55,14 +55,14 @@ class LinkListStack
     
     int size(void) { return count; }
     
-    LinkListNode* top() { return head; }
+    LinkListNode<Type>* top() { return head; }
     
-    LinkListNode* pop() {
+    LinkListNode<Type>* pop() {
         if(isEmpty()){
             throw EmptyStackException();
         }
         // Get current head;
-        LinkListNode* current = head;
+        LinkListNode<Type>* current = head;
         // If it's the only node in the stack, set head to null
         if(!(current->next)){
             head = nullptr;
@@ -74,13 +74,13 @@ class LinkListStack
         count--;
     }
     
-    void push ( LinkListNode* e ){
+    void push ( LinkListNode<Type>* e ){
          if(isEmpty()){
              head = e;
              count++;
          }
          else {
-             LinkListNode* current = head;
+             LinkListNode<Type>* current = head;
              e->next = current;
              head = e; 
              count++;
@@ -88,7 +88,7 @@ class LinkListStack
     }
 
     void print_stack(void){
-        LinkListNode* current = head;
+        LinkListNode<Type>* current = head;
 
         for(int i = 0; i < count; i++){
             std::cout << current->data << "\n";
@@ -103,10 +103,10 @@ class LinkListStack
 int main(){
     Timer Timer_program = Timer();
     Timer_program.start();
-    LinkListStack* LinkList = new LinkListStack();
+    LinkListStack<int>* LinkList = new LinkListStack<int>();
 
-    for(int i = 0; i < 400000; i++){
-        LinkListNode* Node1 = new LinkListNode(i);
+    for(int i = 0; i < 3000000; i++){
+        LinkListNode<int>* Node1 = new LinkListNode<int>(i);
         LinkList->push(Node1);
     }
 
