@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "Deque.h"
 
-void main ( void )
+int main ( void )
 {
 	Deque<int> intQ;
 
