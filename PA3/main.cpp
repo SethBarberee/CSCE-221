@@ -1,6 +1,6 @@
-#include "HeapPQ.h"
 #include "UnsortedPQ.h"
 #include "SortedPQ.h"
+#include "HeapPQ.h"
 #include <iostream>
 #include <fstream>
 
@@ -34,7 +34,6 @@ int main(){
                         Unsort.insertItem(number);
                         count++;
                     }
-                    Unsort.removeMin();
                     std::cout << "Minimum: ";
                     std::cout << Unsort.minValue() << endl;
                     break;
@@ -49,21 +48,24 @@ int main(){
                         Sort.insertItem(number);
                         count++;
                     }
-                    Sort.removeMin();
                     std::cout << "Minimum: ";
                     std::cout << Sort.minValue() << endl;
                     break;
                 }
         case 2: {
                     std::cout << "HeapPQ" << endl; 
-                    /*HeapPQ<int> Heap;
+                    HeapPQ<int> Heap;
                     while(count < amount){
                         ist >> number;
+                        std::cout << "Inserted ";
+                        std::cout << number << endl;
                         Heap.insertItem(number);
                         count++;
                     }
+                    //Heap.removeMin();
+                    std::cout << "Minimum: ";
+                    std::cout << Heap.minValue() << endl;
                     break;
-                    */
                 }
     }
 }

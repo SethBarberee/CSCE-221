@@ -63,8 +63,7 @@ public:
                     position = i;
                 }
             }
-            // TODO: Get this to work!!!
-            //vector_data.erase(position);
+            vector_data.erase(vector_data.begin() + position);
             return min;
        }
        else {
