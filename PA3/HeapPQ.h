@@ -22,15 +22,12 @@ private:
     // need to be resizable (kinda like PA1)
     // root is the first index
     
-    int max_size;
     int num_nodes;
-    Type* S;
+    vector<Type> S;
 
 public:
    HeapPQ(void){
-        num_nodes = 0;
-        max_size = 1;
-        S = new Type[max_size];
+        S = vector<Type>(0);
    };
 
    // Performs an insertion of "n" items from dataArray into the priority queue
@@ -38,45 +35,43 @@ public:
    // bottom up construction to inserting n items in your experimental section of your report.
    HeapPQ ( Type *dataArray, int n );
 
-   ~HeapPQ(void){
-        delete[] S;
-   };
+   ~HeapPQ(void){};
 
-    void resize(int new_size){
-        Type* new_Array = new Type[new_size];
-        for(int i = 0; i <= num_nodes; i++){
-            new_Array[i] = S[i];
+   void reheap(int i){
+       // TODO: Fix the recursion to go to the root of the tree
+        if(S.size() > 2){
+            Type node = S.at(i);
+            int parent_location = (i-1)/2;
+            Type parent = S.at(parent_location);
+            if(node < parent){
+                std::cout << "Switching" << endl;
+                Type temp = node;
+                node = parent;
+                parent = temp;
+            }
         }
-        max_size = new_size;
-        delete[] S;
-        S = new_Array;
-    }
+    };
 
    bool isEmpty(void){
-        return (num_nodes < 0);
+        return (S.size()< 0);
    };
 
    int size(void){
-        return num_nodes;
+        return S.size();
    };
 
    // inserts a piece of data into the priority queue
    void insertItem ( Type data ){
        // TODO: acutally insert into the array
-        num_nodes++;
-        if(num_nodes > max_size){
-            std::cout << "Resizing to size of ";
-            std::cout << max_size*2 << endl;
-            resize(max_size*2);
-        }
-        S[num_nodes] = data;
+       S.push_back(data);
+       reheap(S.size()-1);
    };
 
    // removes and returns the minimum value in the queue
    // throws an exception if the queue is empty
    Type removeMin ( void ){
        if(!isEmpty()){
-            Type root = S[0];
+            Type root = S.at(0);
             // TODO: Delete root and re-heap
             return root;
        }
@@ -89,7 +84,7 @@ public:
    // throws an exception if the queue is empty
    Type minValue ( void ){
         if(!isEmpty()){
-            Type root = S[0];
+            Type root = S.at(0);
             return root;
         }
         else {
