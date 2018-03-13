@@ -17,7 +17,6 @@ template <class Type>
 class HeapPQ
 {
 private:
-	// data here
     // Treat like a tree and put it into an array
     // need to be resizable (kinda like PA1)
     // root is the first index
@@ -38,17 +37,19 @@ public:
    ~HeapPQ(void){};
 
    void reheap(int i){
-       // TODO: Fix the recursion to go to the root of the tree
-        if(S.size() > 2){
-            Type node = S.at(i);
-            int parent_location = (i-1)/2;
+        int node_location = i;
+        while(node_location > 1){
+            Type node = S.at(node_location);
+            int parent_location = (node_location -1)/2;
             Type parent = S.at(parent_location);
             if(node < parent){
-                std::cout << "Switching" << endl;
+                // The switching begins..
                 Type temp = node;
-                node = parent;
-                parent = temp;
+                S[node_location] = parent;
+                S[parent_location] = temp;
             }
+            // Move up the tree
+            node_location--;
         }
     };
 
@@ -62,7 +63,6 @@ public:
 
    // inserts a piece of data into the priority queue
    void insertItem ( Type data ){
-       // TODO: acutally insert into the array
        S.push_back(data);
        reheap(S.size()-1);
    };
@@ -71,8 +71,9 @@ public:
    // throws an exception if the queue is empty
    Type removeMin ( void ){
        if(!isEmpty()){
-            Type root = S.at(0);
-            // TODO: Delete root and re-heap
+            Type root = S.at(0); // store the root
+            S.erase(S.begin()); // Delete the root
+            reheap(S.size()-1); // reheap the vector
             return root;
        }
        else {
