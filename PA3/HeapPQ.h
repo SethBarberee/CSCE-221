@@ -2,6 +2,7 @@
 #define HEAP_PQ_H
 
 #include <exception>
+#include <vector>
 #include <iostream>
 
 using namespace std;

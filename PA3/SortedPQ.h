@@ -3,6 +3,8 @@
 
 #include <exception>
 #include <list>
+#include <iostream>
+#include <iterator>
 
 using namespace std;
 
@@ -47,8 +49,20 @@ public:
    // inserts a piece of data into the priority queue
    void insertItem ( Type data ){
        // Insert the data and then sort the list
-       list_data.push_back(data); 
-       list_data.sort();
+       typename list<Type>::iterator before = list_data.begin();
+       typename list<Type>::iterator after = list_data.begin();
+       int position = 0;
+       std::advance(after,1);
+       for(int i = 0 ; i < list_data.size(); i++){
+           if(data > *before && data < *after){
+             position = i;
+           }
+           std::advance(before,1);
+           std::advance(after,1);
+       }
+       after = list_data.begin();
+       std::advance(after,position+1);
+       list_data.insert(after, data); 
    };
 
    // removes and returns the minimum value in the queue
