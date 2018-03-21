@@ -33,7 +33,11 @@ public:
    // Performs an insertion of "n" items from dataArray into the priority queue
    // BONUS: perform a bottomup heap construction for the heap.  Compare the time it takes to perform a
    // bottom up construction to inserting n items in your experimental section of your report.
-   HeapPQ ( Type *dataArray, int n );
+   HeapPQ ( Type *dataArray, int n ){
+       for(int i = 0; i < n; i++){
+           insertItem(*dataArray[i]);
+       }
+   };
 
    ~HeapPQ(void){};
 

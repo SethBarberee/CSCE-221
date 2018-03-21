@@ -55,14 +55,14 @@ public:
        std::advance(after,1);
        for(int i = 0 ; i < list_data.size(); i++){
            if(data > *before && data < *after){
-             position = i;
+             position = i; // we found the perfect spot for insertion
            }
            std::advance(before,1);
            std::advance(after,1);
        }
-       after = list_data.begin();
-       std::advance(after,position+1);
-       list_data.insert(after, data); 
+       after = list_data.begin(); // reset the pointer to the start of the list
+       std::advance(after,position+1); // move pointer to the correct position for insertion
+       list_data.insert(after, data);  // insert the element at the position
    };
 
    // removes and returns the minimum value in the queue

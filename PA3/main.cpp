@@ -62,7 +62,6 @@ int main(){
                         Heap.insertItem(number);
                         count++;
                     }
-                    Heap.removeMin();
                     std::cout << "Minimum: ";
                     std::cout << Heap.minValue() << endl;
                     break;
