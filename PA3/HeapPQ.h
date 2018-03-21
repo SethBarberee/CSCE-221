@@ -74,7 +74,6 @@ public:
        if(!isEmpty()){
             Type root = S.at(0); // store the root
             S.erase(S.begin()); // Delete the root
-            reheap(S.size()-1); // reheap the vector
             return root;
        }
        else {
