@@ -43,7 +43,7 @@ public:
 
    void reheap(int i){
         int node_location = i;
-        while(node_location > 1){
+        while(node_location > 0){
             Type node = S.at(node_location);
             int parent_location = (node_location -1)/2;
             Type parent = S.at(parent_location);
@@ -59,7 +59,7 @@ public:
     };
 
    bool isEmpty(void){
-        return (S.size()< 0);
+        return (S.size() <= 0);
    };
 
    int size(void){
@@ -78,6 +78,7 @@ public:
        if(!isEmpty()){
             Type root = S.at(0); // store the root
             S.erase(S.begin()); // Delete the root
+            reheap(size()-1);
             return root;
        }
        else {

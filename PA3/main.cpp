@@ -29,8 +29,6 @@ int main(){
                     UnsortedPQ<int> Unsort;
                     while(count < amount){
                         ist >> number;
-                        std::cout << "Inserted ";
-                        std::cout << number << endl;
                         Unsort.insertItem(number);
                         count++;
                     }
@@ -43,8 +41,6 @@ int main(){
                     SortedPQ<int> Sort;
                     while(count < amount){
                         ist >> number;
-                        std::cout << "Inserted ";
-                        std::cout << number << endl;
                         Sort.insertItem(number);
                         count++;
                     }
@@ -57,13 +53,14 @@ int main(){
                     HeapPQ<int> Heap;
                     while(count < amount){
                         ist >> number;
-                        std::cout << "Inserted ";
-                        std::cout << number << endl;
                         Heap.insertItem(number);
                         count++;
                     }
                     std::cout << "Minimum: ";
                     std::cout << Heap.minValue() << endl;
+                    while(!Heap.isEmpty()){
+                        cout << Heap.removeMin() << endl;
+                    }
                     break;
                 }
     }
