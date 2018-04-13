@@ -34,6 +34,9 @@ int main(){
                     }
                     std::cout << "Minimum: ";
                     std::cout << Unsort.minValue() << endl;
+                    while(!Unsort.isEmpty()){
+                        cout << Unsort.removeMin() << endl;
+                    }
                     break;
                 }
         case 1: {
@@ -46,6 +49,9 @@ int main(){
                     }
                     std::cout << "Minimum: ";
                     std::cout << Sort.minValue() << endl;
+                    while(!Sort.isEmpty()){
+                        cout << Sort.removeMin() << endl;
+                    }
                     break;
                 }
         case 2: {
