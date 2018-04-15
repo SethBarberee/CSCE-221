@@ -72,7 +72,7 @@ int main(){
                         count++;
                     }
 
-                    MergeSort(&vec);
+                    MergeSort(vec);
 
                     for(int j = 0; j < vec.size(); j++){
                         std::cout << vec[j] << endl;
@@ -89,9 +89,11 @@ int main(){
                         vec.push_back(number);
                         count++;
                     }
+                        
+                    QuickSort(vec);
 
                     for(int j = 0; j < vec.size(); j++){
-                        std::cout << vec.at(j) << endl;
+                        std::cout << vec[j] << endl;
                     }
 
                     //QuickSort(vec);
