@@ -19,6 +19,7 @@ void BubbleSort(vector<Type> &a){
     for(int i = 0; i < a.size() - 1; i++){
         for(int j = 0; j < a.size() - i - 1; j++){
             if(a.at(j) > a.at(j+1)){
+                // Switch the two
                 swap(&a[j] , &a[j+1]);
             }
         }

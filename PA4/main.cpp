@@ -96,8 +96,6 @@ int main(){
                         std::cout << vec[j] << endl;
                     }
 
-                    //QuickSort(vec);
-
                     break;
                 }
     }
