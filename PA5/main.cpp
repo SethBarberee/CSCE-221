@@ -5,8 +5,8 @@
 
 int main() {
     Graph *Graph1 = new Graph();
-    ifstream ist {"graph.txt"};
-    int num_vert, num_edges, start, end;
+    ifstream ist {"rand200.txt"};
+    int num_vert, num_edges, start, end, distance;
 
     if(!ist){
         std::cout << "Can't open input file!";
@@ -19,13 +19,20 @@ int main() {
         float weight;
         ist >> vert1 >> vert2 >> weight;
         std::cout << "Vertex number: " << vert1 << " and " << vert2 << " with weight: " << weight << endl;
-        Graph1->insertVertex(vert1);
-        Graph1->insertVertex(vert2);
-        Vertex *Vertex1 = new Vertex(vert1);
-        Vertex *Vertex2 = new Vertex(vert2);
+        Vertex *Vertex1 = Graph1->insertVertex(vert1);
+        Vertex *Vertex2 = Graph1->insertVertex(vert2);
         Graph1->insertEdge(Vertex1, Vertex2, weight);
     }
-    Vertex *Start = new Vertex(start);
-    Vertex *End = new Vertex(end);
-    //Graph1->shortestPath(Start, End);
+    // Now to find the shortest path
+    ist >> start >> end;
+    std::cout << "Start at " << start << endl;
+    std::cout << "End at " << end << endl;
+    Vertex *Start = Graph1->insertVertex(start);
+    Vertex *End = Graph1->insertVertex(end);
+    vector<Vertex *> Path = Graph1->shortestPath(Start, End);
+    std::cout << "Path is: ";
+    for(int j = 0; j < Path.size(); j++){
+        cout << Path[j]->data << " ";
+    }
+    std::cout << endl;
 }

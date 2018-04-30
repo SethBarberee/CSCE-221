@@ -124,7 +124,6 @@ public:
 	{
 		if ( isEmpty ( ) )
 		{
-			throw exception ( "Heap is empty" );
 		}
 		return heap [ 0 ]->getData ( );
 	}
@@ -133,7 +132,6 @@ public:
 	{
 		if ( isEmpty ( ) )
 		{
-			throw exception ( "Heap is empty" );
 		}
 		HeapItem *toRemove = heap [ 0 ];
 		Type *rvalue = toRemove->getData ( );
