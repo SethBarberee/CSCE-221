@@ -12,9 +12,9 @@ class Vertex
 {
 public:
 	int data;
-	bool marked;
+	bool marked = false;
 	vector<Edge *> edges;
-	float d = 0;
+	float d = 999999999999999;
 	Vertex *parent;
 	Heap<Vertex>::Locator locator;
 
@@ -84,6 +84,8 @@ public:
         // create the edge
         Edge *edge1 = new Edge(v, w, weight);
         edges.push_back(edge1);
+        v->edges.push_back(edge1);
+        w->edges.push_back(edge1);
 	}
 
 	vector<Vertex *> shortestPath ( Vertex *start, Vertex *goal )
@@ -91,25 +93,33 @@ public:
 		// implement me
         vector<Vertex *> path;
         Vertex *current = start;
+        Vertex *next_current;
+        Heap<Vertex> vertex_heap;
+        vertex_heap.insertElement(start);
         
-        path.push_back(start); // we start with the start
+        current->d = 0;
 
         // find the shortest distance for each one
         // add it to the path vector
-        for(int i = 0; i < edges.size(); i++){
-            Heap<Vertex> vertex_heap;
-            if(edges[i]->v1 == current){
+        while((current != goal) && !(vertex_heap.isEmpty())){
+            current = vertex_heap.removeMin();
+            path.push_back(current);
+            std::cout << "Current is at: " << current->data << endl;
+            for(int i = 0; i < current->edges.size(); i++){
+                if(current->edges[i]->v1 == current){
                 // Check those paths
-                // TODO it still picks the first one
                 // Update d with weight of edge
-                if(edges[i]->v2->d < (edges[i]->weight + edges[i]->v1->d)){
-                    edges[i]->v2->d = edges[i]->v1->d + edges[i]->weight;
+                    if(current->edges[i]->v2->d > (current->edges[i]->weight + current->edges[i]->v1->d)){
+                        current->edges[i]->v2->d = current->edges[i]->v1->d + current->edges[i]->weight;
+                        current->edges[i]->v2->locator = vertex_heap.insertElement(current->edges[i]->v2);
+                    }
                 }
-                edges[i]->v2->locator = vertex_heap.insertElement(edges[i]->v2);
-                vertex_heap.update(edges[i]->v2->locator);
-                Vertex *next_current = vertex_heap.removeMin();
-                current = next_current;
-                path.push_back(current);
+                else if (current->edges[i]->v2 == current){
+                    if(current->edges[i]->v1->d > (current->edges[i]->weight + current->edges[i]->v2->d)){
+                        current->edges[i]->v1->d = current->edges[i]->v2->d + current->edges[i]->weight;
+                        current->edges[i]->v1->locator = vertex_heap.insertElement(current->edges[i]->v1);
+                    }
+                }
             }
         }
         return path;

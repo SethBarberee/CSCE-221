@@ -120,7 +120,7 @@ public:
 		return rvalue;
 	}
 
-	Type *minElement ( void ) throw ( exception )
+	Type *minElement ( void )
 	{
 		if ( isEmpty ( ) )
 		{
@@ -128,7 +128,7 @@ public:
 		return heap [ 0 ]->getData ( );
 	}
 
-	Type *removeMin ( void ) throw ( exception )
+	Type *removeMin ( void )
 	{
 		if ( isEmpty ( ) )
 		{
